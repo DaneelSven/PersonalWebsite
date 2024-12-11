@@ -1,11 +1,6 @@
 {
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/node",
-      "config": {
-        "installCommand": "npm install --force"
-      }
-    }
-  ]
+  "version": 2,
+  "buildCommand": "next build",
+  "framework": "nextjs",
+  "outputDirectory": ".next"
 }
