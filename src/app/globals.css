@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+@font-face {
+  font-family: "Ring";
+  src: url("/src/app/fonts/RING.TTF") format("truetype");
+}
+
+/* In globals.css */
+body {
+  background-color: #111111;
+  background-image: url("/geometric-bg.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@keyframes pulse {
+  0% {
+    filter: brightness(1);
+    transform: scale(1);
+  }
+  50% {
+    filter: brightness(1.2);
+    transform: scale(1.05);
+  }
+  100% {
+    filter: brightness(1);
+    transform: scale(1);
+  }
+}
+
+/* Add this at the end of your globals.css */
+polygon {
+  cursor: pointer;
+}
+
+polygon:hover {
+  opacity: 1 !important;
+  stroke-width: 3px !important;
+}
+
+.hexagon-hover {
+  animation: pulse 2s infinite;
+}
+
+@keyframes move {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes moveCounter {
+  from {
+    transform: translate(-50%, 0);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+
+/* Adds glow effect to the orange accent for enhanced visual interest */
+.text-orangeAccent {
+  color: #ff9902;
+}
+
+/* Hover and transform effects for the experience boxes */
+.hover\\:-translate-y-2:hover {
+  transform: translateY(-8px);
+}
