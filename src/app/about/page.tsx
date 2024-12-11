@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import ExperienceRoadmap from "@/components/ExperienceRoadmap";
 
-const about = () => {
+const About = () => {
   const [columnCount, setColumnCount] = useState(12);
   const size = 80;
   const width = size * Math.sqrt(3);
@@ -235,4 +235,4 @@ const about = () => {
   );
 };
 
-export default about;
+export default About;

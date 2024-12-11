@@ -22,7 +22,7 @@ const LandingPage = () => {
     return () => window.removeEventListener("resize", updateColumnCount);
   }, [width]);
 
-  const [showCalendly, setShowCalendly] = useState(false);
+  const [showCalendly] = useState(false);
 
   useEffect(() => {
     // Load Calendly script when needed
