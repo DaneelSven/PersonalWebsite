@@ -1,10 +1,11 @@
-// app/projects/page.tsx
 "use client";
-import React, { useState, useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import React, { useState, ReactNode, useEffect } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { Menu } from "lucide-react";
 import HexagonGrid from "@/components/HexagonGrid";
+import {} from "react";
 
 interface Project {
   id: number;
@@ -18,6 +19,26 @@ interface Project {
   additionalImages?: string[];
   link: string;
   direction: "left" | "right";
+}
+
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  extendedDescription?: string;
+  features?: string[];
+  architecture?: string;
+  techStack: string[];
+  image: string;
+  additionalImages?: string[];
+  link: string;
+  direction: "left" | "right";
+}
+
+interface NavLinkProps {
+  href: string;
+  children: ReactNode;
+  external?: boolean;
 }
 
 // Props for TextContent
@@ -61,11 +82,7 @@ const projects: Project[] = [
       "Web3.js",
     ],
     image: "/Sirio/Dashboard.png",
-    additionalImages: [
-      "/Sirio/Position.png",
-      "/Sirio/Analytics.png",
-      "/Sirio/Liquidations.png",
-    ],
+    additionalImages: ["/Sirio/Position.png", "/Sirio/Analytics.png"],
     link: "https://github.com/yourusername/project1",
     direction: "left",
   },
@@ -81,13 +98,12 @@ const projects: Project[] = [
       "Utilizes 1Inch, Beefy and other API's to gather best routes for swaps, and algorithm to find best routes among options",
     techStack: ["Next.js", "TypeScript", "Smart Contracts", "Haskell", "Wagmi"],
     image: "/Unikron/Dashboard.jpg",
-    additionalImages: ["/project2-1.png", "/project2-2.png", "/project2-3.png"],
     link: "https://github.com/DaneelSven/Dex-Aggregator",
     direction: "right",
   },
   {
     id: 3,
-    title: "Sarf P2P Family Loans",
+    title: "RWA Property Management",
     description:
       "A Gassless Meta Transaction flow between Arbitrum and Optimism, where a user can burn a token on ChainA and it will automatically mint the token on ChainB without the need to pay for the transaction.",
     extendedDescription:
@@ -109,8 +125,7 @@ const projects: Project[] = [
       "Smart Contracts",
       "OpenZeppelin",
     ],
-    image: "/project2.png",
-    additionalImages: ["/project2-1.png", "/project2-2.png", "/project2-3.png"],
+    image: "/RWA/rwa.png",
     link: "https://github.com/yourusername/project2",
     direction: "left",
   },
@@ -129,7 +144,7 @@ const projects: Project[] = [
       "Web3 Functions",
     ],
     architecture:
-      "Utilizes IPFS for decentralized storage and implements ERC-721 and ERC-1155 standards.",
+      "Develop components into microservices and responsibility abstraction, Signing Service, Sending Service.",
     techStack: [
       "Solidity",
       "Next.js",
@@ -138,8 +153,7 @@ const projects: Project[] = [
       "Smart Contracts",
       "OpenZeppelin",
     ],
-    image: "/project2.png",
-    additionalImages: ["/project2-1.png", "/project2-2.png", "/project2-3.png"],
+    image: "/META/meta.png",
     link: "https://github.com/yourusername/project2",
     direction: "right",
   },
@@ -177,34 +191,32 @@ const projects: Project[] = [
 
   {
     id: 6,
-    title: "Alphapoint",
+    title: "Alphapoint SAS Exchange",
     description:
-      "A Multitoken ERC-1155 marketplace with minting, buring, and forging capabilities.",
+      "Wallet developer Integrating and developing various layer-1 Blockhain wallet solutions",
     extendedDescription:
-      "A comprehensive NFT marketplace platform that enables users to mint, burn, and forge new nfts. Includes features like royalty payments, lazy minting, and collection management.",
+      "Developed several layer-1 Blockchain integrations (Solana, Avalanche, Polkadot, etc) ensuring safe and secure cyrpto exchange functionality. Developed an EVM-based MVP featuring Minimal Proxy Contracts with a factory pattern, utilizing CREATE2 for efficient generation of smart contract wallets",
     features: [
-      "NFT Minting",
-      "Forging",
-      "Lazy Minting",
-      "Royalty System",
-      "Collection Management",
+      "Address Generation",
+      "Withdrawal",
+      "Deposit",
+      "Staking",
+      "Blockchain Integration",
     ],
     architecture:
       "Utilizes IPFS for decentralized storage and implements ERC-721 and ERC-1155 standards.",
     techStack: [
       "Solidity",
-      "Next.js",
       "TypeScript",
-      "IPFS",
       "Smart Contracts",
-      "Web3.js",
-      "Wagmi",
+      "Hierarchical Derivation ",
+      "BIP-44",
+      "BIP-32",
       "OpenZeppelin",
     ],
-    image: "/DB/Dashboard.png",
-    additionalImages: ["/DB/Forging.png"],
+    image: "/ALPHA/alpha.png",
     link: "https://github.com/DaneelSven/DopeBears",
-    direction: "left",
+    direction: "right",
   },
 ];
 
@@ -213,6 +225,31 @@ interface ProjectContentProps {
   isExpanded: boolean;
 }
 
+interface ProjectImagesProps {
+  project: Project;
+  isExpanded: boolean;
+}
+
+const NavLink = ({ href, children, external = false }: NavLinkProps) => {
+  const baseClasses =
+    "px-4 py-2 bg-gray-900/50 rounded-lg border border-orangeAccent/20 hover:border-orangeAccent/50 transition-colors backdrop-blur-sm text-orangeAccent w-full md:w-auto text-center";
+
+  return external ? (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={baseClasses}
+    >
+      {children}
+    </a>
+  ) : (
+    <Link href={href} className={baseClasses}>
+      {children}
+    </Link>
+  );
+};
+
 const ProjectContent = ({ project, isExpanded }: ProjectContentProps) => {
   return (
     <motion.div
@@ -220,10 +257,7 @@ const ProjectContent = ({ project, isExpanded }: ProjectContentProps) => {
         isExpanded ? "md:w-1/3" : "md:w-1/2"
       } overflow-hidden`}
       layout
-      transition={{
-        duration: 0.7,
-        ease: [0.4, 0, 0.2, 1],
-      }}
+      transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
       style={{ originX: project.direction === "left" ? 0 : 1 }}
     >
       <motion.h2 className="text-3xl font-bold text-orangeAccent" layout>
@@ -305,115 +339,115 @@ const ProjectContent = ({ project, isExpanded }: ProjectContentProps) => {
     </motion.div>
   );
 };
-
-// components/ProjectImages.tsx
-interface ProjectImagesProps {
-  project: Project;
-  isExpanded: boolean;
-}
-
 const ProjectImages = ({ project, isExpanded }: ProjectImagesProps) => {
   return (
     <motion.div
-      className={`${isExpanded ? "md:w-2/3" : "md:w-1/2"} overflow-hidden`}
+      className={`${
+        isExpanded ? "md:w-2/3" : "md:w-1/2"
+      } overflow-hidden w-full`}
       layout
-      transition={{
-        duration: 0.7,
-        ease: [0.4, 0, 0.2, 1],
-      }}
-      style={{ originX: project.direction === "left" ? 0 : 1 }}
+      transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
     >
-      <motion.div className={isExpanded ? "grid grid-cols-2 gap-4" : ""} layout>
-        <motion.div
-          className={`${
-            isExpanded ? "col-span-2" : ""
-          } aspect-video relative rounded-lg overflow-hidden`}
-          layout
-        >
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="object-cover"
-          />
-        </motion.div>
-
-        {isExpanded && (
-          <motion.div className="col-span-2 grid grid-cols-2 gap-4">
-            {project.additionalImages?.map((img, i) => (
-              <motion.div
-                key={i}
-                className="aspect-video relative rounded-lg overflow-hidden bg-gray-700/50"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
-                transition={{
-                  duration: 0.5,
-                  ease: [0.4, 0, 0.2, 1],
-                  delay: 0.2 + i * 0.15,
-                }}
-              >
-                <Image
-                  src={img}
-                  alt={`${project.title} detail ${i + 1}`}
-                  fill
-                  className="object-cover"
-                  loading="eager"
-                />
-              </motion.div>
-            ))}
-          </motion.div>
-        )}
+      {/* Single Image - Always visible in both mobile and desktop */}
+      <motion.div
+        className="w-full aspect-video relative rounded-lg overflow-hidden mb-4"
+        layout
+      >
+        <Image
+          src={project.image}
+          alt={project.title}
+          fill
+          className="object-cover"
+        />
       </motion.div>
+
+      {/* Additional images - only show when expanded on desktop */}
+      {isExpanded && project.additionalImages && (
+        <motion.div className="hidden md:grid md:grid-cols-2 gap-4">
+          {project.additionalImages.map((img, i) => (
+            <motion.div
+              key={i}
+              className="aspect-video relative rounded-lg overflow-hidden bg-gray-700/50"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.5,
+                ease: [0.4, 0, 0.2, 1],
+                delay: 0.2 + i * 0.15,
+              }}
+            >
+              <Image
+                src={img}
+                alt={`${project.title} detail ${i + 1}`}
+                fill
+                className="object-cover"
+                loading="eager"
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+      )}
     </motion.div>
   );
 };
-
-// components/ProjectCard.tsx
 const ProjectCard = ({ project }: { project: Project }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const duration = 0.7;
 
-  // Create a container style based on direction
-  const containerStyle = `flex flex-col ${
-    project.direction === "left" ? "md:flex-row" : "md:flex-row-reverse"
-  } items-center gap-8`;
-
   return (
-    <motion.div
-      initial={{ x: project.direction === "left" ? -300 : 300, opacity: 0 }}
-      whileInView={{ x: 0, opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className={`flex ${
-        project.direction === "left" ? "justify-start" : "justify-end"
-      } mb-32 relative`}
-    >
+    <div className="mb-32">
+      {" "}
+      {/* Fixed spacing container */}
       <motion.div
-        className={`p-6 bg-gray-900/50 rounded-lg border border-orangeAccent/20 hover:border-orangeAccent/50 transition-colors backdrop-blur-sm
-                   ${isExpanded ? "w-full max-w-[1200px]" : "w-[800px]"} ${
-          isExpanded ? "" : "flex justify-center"
+        initial={{ x: project.direction === "left" ? -300 : 300, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className={`flex ${
+          project.direction === "left" ? "justify-start" : "justify-end"
         }`}
-        onClick={() => setIsExpanded(!isExpanded)}
-        layout
-        transition={{ duration }}
       >
         <motion.div
-          className={containerStyle}
+          className={`p-6 bg-gray-900/50 rounded-lg border border-orangeAccent/20 
+                     hover:border-orangeAccent/50 transition-colors backdrop-blur-sm
+                     ${isExpanded ? "w-full max-w-[1200px]" : "w-[800px]"}`}
+          onClick={() => setIsExpanded(!isExpanded)}
           layout
-          style={{ originX: project.direction === "left" ? 0 : 1 }}
+          transition={{
+            layout: { duration: 0.7 },
+            ease: "easeInOut",
+          }}
         >
-          <ProjectContent project={project} isExpanded={isExpanded} />
-          <ProjectImages project={project} isExpanded={isExpanded} />
+          <motion.div
+            className={`flex flex-col ${
+              project.direction === "left"
+                ? "md:flex-row"
+                : "md:flex-row-reverse"
+            } items-center gap-8`}
+            layout
+          >
+            <ProjectContent project={project} isExpanded={isExpanded} />
+            <ProjectImages project={project} isExpanded={isExpanded} />
+          </motion.div>
         </motion.div>
       </motion.div>
-    </motion.div>
+    </div>
   );
 };
 
 const Page = () => {
   const [columnCount, setColumnCount] = useState(12);
-  const size = 80;
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const size = isMobile ? 40 : 80;
   const width = size * Math.sqrt(3);
 
   useEffect(() => {
@@ -430,7 +464,6 @@ const Page = () => {
 
   return (
     <div className="relative min-h-screen bg-[#0a0a0a] flex flex-col">
-      {/* Main Hexagon Background */}
       <div
         style={{
           position: "absolute",
@@ -458,67 +491,51 @@ const Page = () => {
         <HexagonGrid columnCount={columnCount} size={size} />
       </div>
 
-      <nav
-        style={{ position: "relative", zIndex: 30 }}
-        className="px-6 py-4 flex justify-between items-center"
-      >
-        <Image src="/logo.png" alt="Portrait" width={150} height={100} />{" "}
-        <div className="flex gap-4">
-          <Link
-            href="/"
-            className="px-4 py-2 bg-gray-900/50 rounded-lg border border-orangeAccent/20 
-               hover:border-orangeAccent/50 transition-colors backdrop-blur-sm 
-               text-orangeAccent"
-          >
-            Home
-          </Link>
-          <button
-            className="px-4 py-2 bg-gray-900/50 rounded-lg border border-orangeAccent/20 
-               hover:border-orangeAccent/50 transition-colors backdrop-blur-sm 
-               text-orangeAccent"
-          >
-            <Link href="/projects">Projects</Link>{" "}
-          </button>
+      <nav className="relative z-30 px-4 md:px-6 py-4">
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="flex justify-between items-center w-full md:w-auto">
+            <Image src="/logo.png" alt="Logo" width={150} height={100} />
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden text-orangeAccent"
+            >
+              <Menu size={24} />
+            </button>
+          </div>
 
-          <button
-            className="px-4 py-2 bg-gray-900/50 rounded-lg border border-orangeAccent/20 
-               hover:border-orangeAccent/50 transition-colors backdrop-blur-sm 
-               text-orangeAccent"
+          <div
+            className={`${
+              isMenuOpen ? "flex" : "hidden"
+            } md:flex flex-col md:flex-row gap-2 md:gap-4 w-full md:w-auto mt-4 md:mt-0`}
           >
-            <Link href="/about">About</Link>{" "}
-          </button>
-
-          <a
-            href="https://calendly.com/sven4696"
-            target="_blank" // Opens in new tab
-            rel="noopener noreferrer"
-            className="px-4 py-2 bg-gray-900/50 rounded-lg border border-orangeAccent/20 
-               hover:border-orangeAccent/50 transition-colors backdrop-blur-sm 
-               text-orangeAccent"
-          >
-            Book a Meeting
-          </a>
+            <NavLink href="/">Home</NavLink>
+            <NavLink href="/projects">Projects</NavLink>
+            <NavLink href="/about">About</NavLink>
+            <NavLink href="https://calendly.com/sven4696" external>
+              Book a Meeting
+            </NavLink>
+          </div>
         </div>
       </nav>
 
-      <main style={{ position: "relative", zIndex: 30 }} className="px-6 pt-20">
+      <main className="relative z-30 px-4 md:px-6 pt-10 md:pt-20">
         <div className="max-w-7xl mx-auto">
           <motion.div
-            initial={{ y: -50, opacity: 0 }}
+            initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-20"
+            className="text-center mb-10 md:mb-20"
           >
-            <h1 className="text-5xl font-bold text-orangeAccent mb-4">
+            <h1 className="text-3xl md:text-5xl font-bold text-orangeAccent mb-4">
               My Projects
             </h1>
-            <p className="text-xl text-gray-400">
+            <p className="text-base md:text-xl text-gray-400">
               A showcase of some cool Projects and Personal MVPs throughout my
               blockchain development journey
             </p>
           </motion.div>
 
-          <div className="space-y-32">
+          <div>
             {projects.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
@@ -527,11 +544,8 @@ const Page = () => {
       </main>
 
       <div
+        className="absolute inset-0 z-20 pointer-events-none"
         style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 20,
-          pointerEvents: "none",
           background:
             "linear-gradient(to bottom, #0a0a0a 0%, transparent 25%, transparent 75%, #0a0a0a 100%)",
         }}
