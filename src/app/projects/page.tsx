@@ -467,7 +467,7 @@ const ProjectImages = ({ project, isExpanded }: ProjectImagesProps) => {
   );
 };
 
-const ProjectCard = ({ project }: { project: Project }) => {
+const ProjectCardOld = ({ project }: { project: Project }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const duration = 0.7;
 
@@ -516,15 +516,14 @@ const ProjectCard = ({ project }: { project: Project }) => {
   );
 };
 
-const ProjectCardNew = ({ project }: { project: Project }) => {
+const ProjectCard = ({ project }: { project: Project }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const duration = 0.7;
 
   return (
-    <div
-      className="mb-32 md:overflow-visible overflow-hidden"
-      style={{ marginBottom: isExpanded ? "3rem" : "4rem" }} // Extra margin for expanded state
-    >
+    <div className="mb-32 md:overflow-visible overflow-hidden">
+      {" "}
+      {/* Only hidden on mobile */}
       <motion.div
         initial={{
           x: project.direction === "left" ? -300 : 300,
@@ -538,7 +537,8 @@ const ProjectCardNew = ({ project }: { project: Project }) => {
           x: project.direction === "left" ? -300 : 300,
           opacity: 0,
         }}
-        viewport={{ once: false, amount: 0.3 }}
+        viewport={{ once: false, amount: 0 }}
+        // viewport={{ once: true }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className={`flex ${
           project.direction === "left" ? "justify-start" : "justify-end"
