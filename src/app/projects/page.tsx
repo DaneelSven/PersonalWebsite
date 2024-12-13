@@ -467,7 +467,7 @@ const ProjectImages = ({ project, isExpanded }: ProjectImagesProps) => {
   );
 };
 
-const ProjectCardOld = ({ project }: { project: Project }) => {
+const ProjectCard = ({ project }: { project: Project }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const duration = 0.7;
 
@@ -516,7 +516,7 @@ const ProjectCardOld = ({ project }: { project: Project }) => {
   );
 };
 
-const ProjectCard = ({ project }: { project: Project }) => {
+const ProjectCardNew = ({ project }: { project: Project }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const duration = 0.7;
 
