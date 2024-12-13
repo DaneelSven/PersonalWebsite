@@ -3,8 +3,9 @@ import React, { useState, ReactNode, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { Menu } from "lucide-react";
 import HexagonGrid from "@/components/HexagonGrid";
-import NavBar from "@/components/NavBar";
+import {} from "react";
 
 interface Project {
   id: number;
@@ -81,8 +82,12 @@ const projects: Project[] = [
       "Web3.js",
     ],
     image: "/Sirio/Dashboard.png",
-    additionalImages: ["/Sirio/Position.png", "/Sirio/Analytics.png"],
-    link: "private",
+    additionalImages: [
+      "/Sirio/Position.png",
+      "/Sirio/Analytics.png",
+      "/Sirio/Liquidations.png",
+    ],
+    link: "https://github.com/yourusername/project1",
     direction: "left",
   },
   {
@@ -97,25 +102,26 @@ const projects: Project[] = [
       "Utilizes 1Inch, Beefy and other API's to gather best routes for swaps, and algorithm to find best routes among options",
     techStack: ["Next.js", "TypeScript", "Smart Contracts", "Haskell", "Wagmi"],
     image: "/Unikron/Dashboard.jpg",
+    additionalImages: ["/project2-1.png", "/project2-2.png", "/project2-3.png"],
     link: "https://github.com/DaneelSven/Dex-Aggregator",
     direction: "right",
   },
   {
     id: 3,
-    title: "RWA Property Management",
+    title: "Sarf P2P Family Loans",
     description:
-      "A Real World Asset Tokenisation Property Management System, where investors can buy shares of tokenized properties and earn percentual rent based on shares owned in the property.",
+      "A Gassless Meta Transaction flow between Arbitrum and Optimism, where a user can burn a token on ChainA and it will automatically mint the token on ChainB without the need to pay for the transaction.",
     extendedDescription:
-      "Utilizing Factory Pattern with Nft's representing ownership of properties Landlords can tokenize properties or apartement complexes and investors can buy shares in the property, making it more avialable and easily accessible for people to buy realastate with less starting capital.",
+      "Utilizing Gelato's cloud rollups as a service and Typescript functions combined with IPFS storage, users can seemlesly burn tokens on one chain it the Relayers will automatically detect a Burn event and sumbit a new Mintng tranasction on the destination chain where the user does not have to pay for either Transaction",
     features: [
-      "Soldity",
-      "Cross-Chain",
-      "IFPS",
-      "Nft's",
-      "Property Management",
+      "Gasless Meta Transaction",
+      "Relayers",
+      "ERC-2771-Context Trusted Forwarder",
+      "IPFS storage for automated scripts ",
+      "Web3 Functions",
     ],
     architecture:
-      "Utilizes IPFS for decentralized storage and implements ERC-721 and ERC-1155 standards. Utilized Factory Contract to deploy child contracts and implements upgradable proxy pattern",
+      "Utilizes IPFS for decentralized storage and implements ERC-721 and ERC-1155 standards.",
     techStack: [
       "Solidity",
       "Next.js",
@@ -123,10 +129,10 @@ const projects: Project[] = [
       "IPFS",
       "Smart Contracts",
       "OpenZeppelin",
-      "Foundry",
     ],
-    image: "/RWA/rwa.png",
-    link: "https://github.com/DaneelSven/rwa-property-management-crosschain",
+    image: "/project2.png",
+    additionalImages: ["/project2-1.png", "/project2-2.png", "/project2-3.png"],
+    link: "https://github.com/yourusername/project2",
     direction: "left",
   },
   {
@@ -144,7 +150,7 @@ const projects: Project[] = [
       "Web3 Functions",
     ],
     architecture:
-      "Develop components into microservices and responsibility abstraction, Signing Service, Sending Service.",
+      "Utilizes IPFS for decentralized storage and implements ERC-721 and ERC-1155 standards.",
     techStack: [
       "Solidity",
       "Next.js",
@@ -153,7 +159,8 @@ const projects: Project[] = [
       "Smart Contracts",
       "OpenZeppelin",
     ],
-    image: "/META/meta.png",
+    image: "/project2.png",
+    additionalImages: ["/project2-1.png", "/project2-2.png", "/project2-3.png"],
     link: "https://github.com/yourusername/project2",
     direction: "right",
   },
@@ -191,76 +198,36 @@ const projects: Project[] = [
 
   {
     id: 6,
-    title: "Alphapoint SAS Exchange",
+    title: "Alphapoint",
     description:
-      "Wallet developer Integrating and developing various layer-1 Blockhain wallet solutions",
+      "A Multitoken ERC-1155 marketplace with minting, buring, and forging capabilities.",
     extendedDescription:
-      "Developed several layer-1 Blockchain integrations (Solana, Avalanche, Polkadot, etc) ensuring safe and secure cyrpto exchange functionality. Developed an EVM-based MVP featuring Minimal Proxy Contracts with a factory pattern, utilizing CREATE2 for efficient generation of smart contract wallets",
+      "A comprehensive NFT marketplace platform that enables users to mint, burn, and forge new nfts. Includes features like royalty payments, lazy minting, and collection management.",
     features: [
-      "Address Generation",
-      "Withdrawal",
-      "Deposit",
-      "Staking",
-      "Blockchain Integration",
+      "NFT Minting",
+      "Forging",
+      "Lazy Minting",
+      "Royalty System",
+      "Collection Management",
     ],
     architecture:
       "Utilizes IPFS for decentralized storage and implements ERC-721 and ERC-1155 standards.",
     techStack: [
       "Solidity",
+      "Next.js",
       "TypeScript",
+      "IPFS",
       "Smart Contracts",
-      "Hierarchical Derivation ",
-      "BIP-44",
-      "BIP-32",
+      "Web3.js",
+      "Wagmi",
       "OpenZeppelin",
     ],
-    image: "/ALPHA/alpha.png",
+    image: "/DB/Dashboard.png",
+    additionalImages: ["/DB/Forging.png"],
     link: "https://github.com/DaneelSven/DopeBears",
-    direction: "right",
+    direction: "left",
   },
 ];
-
-const PrivateRepoModal = ({
-  isOpen,
-  onClose,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-}) => {
-  if (!isOpen) return null;
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[9999] flex items-center justify-center px-4"
-    >
-      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
-      <motion.div
-        initial={{ scale: 0.95, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        className="bg-[#0a0a0a] p-6 rounded-lg border border-orangeAccent/20 relative z-10 max-w-md w-full"
-      >
-        <h3 className="text-xl font-semibold text-orangeAccent mb-4">
-          Private Repository
-        </h3>
-        <p className="text-gray-300 mb-6">
-          Sorry, this project repository is currently private. Please check back
-          later or contact me for more information.
-        </p>
-        <button
-          onClick={onClose}
-          className="px-4 py-2 bg-gray-900/50 rounded-lg border border-orangeAccent/20 
-                   hover:border-orangeAccent/50 transition-colors backdrop-blur-sm 
-                   text-orangeAccent w-full text-center"
-        >
-          Close
-        </button>
-      </motion.div>
-    </motion.div>
-  );
-};
 
 interface ProjectContentProps {
   project: Project;
@@ -272,10 +239,27 @@ interface ProjectImagesProps {
   isExpanded: boolean;
 }
 
-const ProjectContent = ({ project, isExpanded }: ProjectContentProps) => {
-  const [showPrivateModal, setShowPrivateModal] = useState(false);
-  const isPrivate = project.link.includes("private"); // Check if repo is private
+const NavLink = ({ href, children, external = false }: NavLinkProps) => {
+  const baseClasses =
+    "px-4 py-2 bg-gray-900/50 rounded-lg border border-orangeAccent/20 hover:border-orangeAccent/50 transition-colors backdrop-blur-sm text-orangeAccent w-full md:w-auto text-center";
 
+  return external ? (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={baseClasses}
+    >
+      {children}
+    </a>
+  ) : (
+    <Link href={href} className={baseClasses}>
+      {children}
+    </Link>
+  );
+};
+
+const ProjectContent = ({ project, isExpanded }: ProjectContentProps) => {
   return (
     <motion.div
       className={`space-y-4 ${
@@ -350,57 +334,21 @@ const ProjectContent = ({ project, isExpanded }: ProjectContentProps) => {
           transition={{ duration: 0.7 }}
           style={{ overflow: "hidden" }}
         >
-          {isExpanded &&
-            (isPrivate ? (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setShowPrivateModal(true);
-                }}
-                className="inline-block px-6 py-3 bg-[#ff9902] text-white rounded-lg hover:bg-[#ff9902]/90 transition-colors"
-              >
-                View Project →
-              </button>
-            ) : (
-              <Link
-                href={project.link}
-                target="_blank"
-                className="inline-block px-6 py-3 bg-[#ff9902] text-white rounded-lg hover:bg-[#ff9902]/90 transition-colors"
-              >
-                View Project →
-              </Link>
-            ))}
+          {isExpanded && (
+            <Link
+              href={project.link}
+              target="_blank"
+              className="inline-block px-6 py-3 bg-[#ff9902] text-white rounded-lg hover:bg-[#ff9902]/90 transition-colors"
+            >
+              View Project →
+            </Link>
+          )}
         </motion.div>
       </motion.div>
-
-      <PrivateRepoModal
-        isOpen={showPrivateModal}
-        //@ts-ignore
-        onClose={(e) => {
-          e.stopPropagation();
-          setShowPrivateModal(false);
-        }}
-      />
     </motion.div>
   );
 };
-
 const ProjectImages = ({ project, isExpanded }: ProjectImagesProps) => {
-  const [showImageModal, setShowImageModal] = useState(false);
-  const [activeImage, setActiveImage] = useState<string | null>(null);
-
-  const handleImageClick = (e: React.MouseEvent, image: string) => {
-    e.stopPropagation();
-    setActiveImage(image);
-    setShowImageModal(true);
-  };
-
-  const closeModal = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setActiveImage(null);
-    setShowImageModal(false);
-  };
-
   return (
     <motion.div
       className={`${
@@ -409,72 +357,56 @@ const ProjectImages = ({ project, isExpanded }: ProjectImagesProps) => {
       layout
       transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
     >
-      <motion.div className="w-full aspect-video relative rounded-lg overflow-hidden mb-4">
+      {/* Single Image - Always visible in both mobile and desktop */}
+      <motion.div
+        className="w-full aspect-video relative rounded-lg overflow-hidden mb-4"
+        layout
+      >
         <Image
           src={project.image}
           alt={project.title}
           fill
-          className="object-cover cursor-pointer"
-          onClick={(e) => handleImageClick(e, project.image)}
+          className="object-cover"
         />
       </motion.div>
 
+      {/* Additional images - only show when expanded on desktop */}
       {isExpanded && project.additionalImages && (
-        <motion.div className="grid md:grid-cols-2 gap-4">
+        <motion.div className="hidden md:grid md:grid-cols-2 gap-4">
           {project.additionalImages.map((img, i) => (
             <motion.div
               key={i}
               className="aspect-video relative rounded-lg overflow-hidden bg-gray-700/50"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.5,
+                ease: [0.4, 0, 0.2, 1],
+                delay: 0.2 + i * 0.15,
+              }}
             >
               <Image
                 src={img}
                 alt={`${project.title} detail ${i + 1}`}
                 fill
-                className="object-cover cursor-pointer"
-                onClick={(e) => handleImageClick(e, img)}
+                className="object-cover"
+                loading="eager"
               />
             </motion.div>
           ))}
         </motion.div>
       )}
-
-      {activeImage && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="modal-overlay"
-          onClick={closeModal}
-        >
-          <motion.div
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            className="modal-content"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button className="modal-close-btn" onClick={closeModal}>
-              ✕
-            </button>
-            <img
-              src={activeImage}
-              alt="Project Preview"
-              className="w-auto max-w-full h-auto max-h-[90vh] rounded-lg"
-            />
-          </motion.div>
-        </motion.div>
-      )}
     </motion.div>
   );
 };
-
 const ProjectCard = ({ project }: { project: Project }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const duration = 0.7;
 
   return (
-    <div className="mb-32 md:overflow-visible overflow-hidden">
+    <div className="mb-32">
       {" "}
-      {/* Only hidden on mobile */}
+      {/* Fixed spacing container */}
       <motion.div
         initial={{ x: project.direction === "left" ? -300 : 300, opacity: 0 }}
         whileInView={{ x: 0, opacity: 1 }}
@@ -541,34 +473,41 @@ const Page = () => {
 
   return (
     <div className="relative min-h-screen bg-[#0a0a0a] flex flex-col">
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          overflow: "hidden",
-          zIndex: 1,
-          top: "-10%",
-          height: "80vh",
-        }}
-      >
-        <HexagonGrid columnCount={columnCount} size={size} />
+      <div className="absolute inset-0 overflow-hidden z-1">
+        <div className="relative h-[80vh] -top-[10%]">
+          <HexagonGrid columnCount={columnCount} size={size} />
+        </div>
+        <div className="relative h-[80vh] top-[40%]">
+          <HexagonGrid columnCount={columnCount} size={size} />
+        </div>
       </div>
 
-      {/* Counter-rotating Hexagon Background */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          overflow: "hidden",
-          zIndex: 1,
-          top: "40%",
-          height: "80vh",
-        }}
-      >
-        <HexagonGrid columnCount={columnCount} size={size} />
-      </div>
+      <nav className="relative z-30 px-4 md:px-6 py-4">
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="flex justify-between items-center w-full md:w-auto">
+            <Image src="/logo.png" alt="Logo" width={150} height={100} />
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden text-orangeAccent"
+            >
+              <Menu size={24} />
+            </button>
+          </div>
 
-      <NavBar />
+          <div
+            className={`${
+              isMenuOpen ? "flex" : "hidden"
+            } md:flex flex-col md:flex-row gap-2 md:gap-4 w-full md:w-auto mt-4 md:mt-0`}
+          >
+            <NavLink href="/">Home</NavLink>
+            <NavLink href="/projects">Projects</NavLink>
+            <NavLink href="/about">About</NavLink>
+            <NavLink href="https://calendly.com/sven4696" external>
+              Book a Meeting
+            </NavLink>
+          </div>
+        </div>
+      </nav>
 
       <main className="relative z-30 px-4 md:px-6 pt-10 md:pt-20">
         <div className="max-w-7xl mx-auto">

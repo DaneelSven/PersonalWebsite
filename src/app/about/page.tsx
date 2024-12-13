@@ -2,39 +2,12 @@
 import HexagonGrid from "@/components/HexagonGrid";
 import { Download, Github, Linkedin, Menu } from "lucide-react";
 import React, { useEffect, ReactNode, useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import ExperienceRoadmap from "@/components/ExperienceRoadmap";
-
-interface NavLinkProps {
-  href: string;
-  children: ReactNode;
-  external?: boolean;
-}
-
-const NavLink = ({ href, children, external = false }: NavLinkProps) => {
-  const baseClasses =
-    "px-4 py-2 bg-gray-900/50 rounded-lg border border-orangeAccent/20 hover:border-orangeAccent/50 transition-colors backdrop-blur-sm text-orangeAccent w-full md:w-auto text-center";
-
-  return external ? (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={baseClasses}
-    >
-      {children}
-    </a>
-  ) : (
-    <Link href={href} className={baseClasses}>
-      {children}
-    </Link>
-  );
-};
+import NavBar from "@/components/NavBar";
 
 const About = () => {
   const [columnCount, setColumnCount] = useState(12);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const size = 80;
   const width = size * Math.sqrt(3);
@@ -93,32 +66,7 @@ const About = () => {
       </div>
 
       {/* Navigation */}
-      <nav className="relative z-30 px-4 md:px-6 py-4">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="flex justify-between items-center w-full md:w-auto">
-            <Image src="/logo.png" alt="Logo" width={150} height={100} />
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden text-orangeAccent"
-            >
-              <Menu size={24} />
-            </button>
-          </div>
-
-          <div
-            className={`${
-              isMenuOpen ? "flex" : "hidden"
-            } md:flex flex-col md:flex-row gap-2 md:gap-4 w-full md:w-auto mt-4 md:mt-0`}
-          >
-            <NavLink href="/">Home</NavLink>
-            <NavLink href="/projects">Projects</NavLink>
-            <NavLink href="/about">About</NavLink>
-            <NavLink href="https://calendly.com/sven4696" external>
-              Book a Meeting
-            </NavLink>
-          </div>
-        </div>
-      </nav>
+      <NavBar />
 
       {/* Hero Section */}
       <section className="relative z-20 py-16 px-6 text-center md:flex md:text-left md:items-center max-w-5xl mx-auto">
