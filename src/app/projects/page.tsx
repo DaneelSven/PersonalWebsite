@@ -375,7 +375,7 @@ const ProjectContent = ({ project, isExpanded }: ProjectContentProps) => {
 
       <PrivateRepoModal
         isOpen={showPrivateModal}
-        //@ts-ignore
+        //@ts-expect-error
         onClose={(e) => {
           e.stopPropagation();
           setShowPrivateModal(false);
