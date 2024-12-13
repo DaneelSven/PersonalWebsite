@@ -390,14 +390,15 @@ const ProjectImages = ({ project, isExpanded }: ProjectImagesProps) => {
     </motion.div>
   );
 };
+
 const ProjectCard = ({ project }: { project: Project }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const duration = 0.7;
 
   return (
-    <div className="mb-32">
+    <div className="mb-32 md:overflow-visible overflow-hidden">
       {" "}
-      {/* Fixed spacing container */}
+      {/* Only hidden on mobile */}
       <motion.div
         initial={{ x: project.direction === "left" ? -300 : 300, opacity: 0 }}
         whileInView={{ x: 0, opacity: 1 }}
