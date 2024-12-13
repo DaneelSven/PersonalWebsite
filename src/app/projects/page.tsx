@@ -518,16 +518,33 @@ const ProjectCardOld = ({ project }: { project: Project }) => {
 
 const ProjectCard = ({ project }: { project: Project }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const duration = 0.7;
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
 
-  // Screen size checks
-  const isMobile = window.innerWidth <= 768;
-  const isTablet = window.innerWidth > 768 && window.innerWidth <= 1024;
-  const isDesktop = window.innerWidth > 1024;
+  useEffect(() => {
+    // Check window size after the component has mounted (client-side)
+    const updateWindowSize = () => {
+      const width = window.innerWidth;
+      setIsMobile(width <= 768);
+      setIsTablet(width > 768 && width <= 1024);
+      setIsDesktop(width > 1024);
+    };
+
+    // Initial check
+    updateWindowSize();
+
+    // Add event listener to update window size on resize
+    window.addEventListener("resize", updateWindowSize);
+
+    // Clean up event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", updateWindowSize);
+    };
+  }, []);
 
   return (
     <div className="mb-32 md:overflow-visible overflow-hidden">
-      {/* Only hidden on mobile */}
       <motion.div
         initial={{
           x: project.direction === "left" ? -300 : 300,
@@ -541,17 +558,9 @@ const ProjectCard = ({ project }: { project: Project }) => {
           x: project.direction === "left" ? -300 : 300,
           opacity: 0,
         }}
-        // Adjust viewport amount based on screen size
         viewport={{
           once: false,
-          // On mobile, trigger when 10% of the component is visible
-          amount: isMobile
-            ? 0.1
-            : isTablet
-            ? 0.2 // On tablet, trigger when 20% is visible
-            : isDesktop
-            ? 0.3 // On desktop, trigger when 30% is visible
-            : 0.3,
+          amount: isMobile ? 0.1 : isTablet ? 0.2 : isDesktop ? 0.3 : 0.3,
         }}
         transition={{
           duration: 0.8,
