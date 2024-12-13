@@ -154,7 +154,7 @@ const projects: Project[] = [
       "OpenZeppelin",
     ],
     image: "/META/meta.png",
-    link: "https://github.com/yourusername/project2",
+    link: "https://github.com/DaneelSven/Gelato-Briging",
     direction: "right",
   },
   {
@@ -215,7 +215,7 @@ const projects: Project[] = [
       "OpenZeppelin",
     ],
     image: "/ALPHA/alpha.png",
-    link: "https://github.com/DaneelSven/DopeBears",
+    link: "private",
     direction: "right",
   },
 ];
