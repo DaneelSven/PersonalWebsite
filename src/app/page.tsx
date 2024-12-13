@@ -332,14 +332,14 @@ const LandingPage = () => {
       </section>
 
       {/* Bottom Section */}
-      <section className="relative z-20 px-4 md:px-6 py-12 md:py-16 bg-gray-900/50 mt-auto">
+      <section className="relative z-20 px-4 md:px-6 py-12 bg-gray-900/50 mt-auto">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-            Don&apos;t hesitate and reach out to me.
+            Feel free to reach out if you need anything
           </h2>
-          <p className="text-gray-400 mb-6 md:mb-8">
+          {/* <p className="text-gray-400 mb-6 md:mb-8">
             Let&apos;s Build together and create the decentralized world
-          </p>
+          </p> */}
           <NavLink href="https://calendly.com/sven4696" external>
             Book a Meeting
           </NavLink>
