@@ -375,7 +375,7 @@ const ProjectContent = ({ project, isExpanded }: ProjectContentProps) => {
 
       <PrivateRepoModal
         isOpen={showPrivateModal}
-        //@ts-expect-error
+        // @ts-expect-error: Necessary to ignore due to mismatched type for onClose function
         onClose={(e) => {
           e.stopPropagation();
           setShowPrivateModal(false);
