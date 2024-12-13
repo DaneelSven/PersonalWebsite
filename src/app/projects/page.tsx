@@ -467,7 +467,7 @@ const ProjectImages = ({ project, isExpanded }: ProjectImagesProps) => {
   );
 };
 
-const ProjectCard = ({ project }: { project: Project }) => {
+const ProjectCardOld = ({ project }: { project: Project }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const duration = 0.7;
 
@@ -479,6 +479,10 @@ const ProjectCard = ({ project }: { project: Project }) => {
         initial={{ x: project.direction === "left" ? -300 : 300, opacity: 0 }}
         whileInView={{ x: 0, opacity: 1 }}
         viewport={{ once: true }}
+        exit={{
+          x: project.direction === "left" ? -300 : 300,
+          opacity: 0,
+        }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className={`flex ${
           project.direction === "left" ? "justify-start" : "justify-end"
@@ -488,6 +492,66 @@ const ProjectCard = ({ project }: { project: Project }) => {
           className={`p-6 bg-gray-900/50 rounded-lg border border-orangeAccent/20 
                      hover:border-orangeAccent/50 transition-colors backdrop-blur-sm
                      ${isExpanded ? "w-full max-w-[1200px]" : "w-[800px]"}`}
+          onClick={() => setIsExpanded(!isExpanded)}
+          layout
+          transition={{
+            layout: { duration: 0.7 },
+            ease: "easeInOut",
+          }}
+        >
+          <motion.div
+            className={`flex flex-col ${
+              project.direction === "left"
+                ? "md:flex-row"
+                : "md:flex-row-reverse"
+            } items-center gap-8`}
+            layout
+          >
+            <ProjectContent project={project} isExpanded={isExpanded} />
+            <ProjectImages project={project} isExpanded={isExpanded} />
+          </motion.div>
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+};
+
+const ProjectCard = ({ project }: { project: Project }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const duration = 0.7;
+
+  return (
+    <div
+      className="mb-32 md:overflow-visible overflow-hidden"
+      style={{ marginBottom: isExpanded ? "3rem" : "4rem" }} // Extra margin for expanded state
+    >
+      <motion.div
+        initial={{
+          x: project.direction === "left" ? -300 : 300,
+          opacity: 0,
+        }}
+        whileInView={{
+          x: 0,
+          opacity: 1,
+        }}
+        exit={{
+          x: project.direction === "left" ? -300 : 300,
+          opacity: 0,
+        }}
+        viewport={{ once: false, amount: 0.3 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className={`flex ${
+          project.direction === "left" ? "justify-start" : "justify-end"
+        }`}
+      >
+        <motion.div
+          className={`p-6 bg-gray-900/50 rounded-lg border border-orangeAccent/20 
+                       hover:border-orangeAccent/50 transition-colors backdrop-blur-sm
+                       ${
+                         isExpanded
+                           ? "w-full max-w-[1200px]"
+                           : "w-[800px] transition-all"
+                       }`}
           onClick={() => setIsExpanded(!isExpanded)}
           layout
           transition={{
