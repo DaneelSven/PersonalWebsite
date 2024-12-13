@@ -520,9 +520,13 @@ const ProjectCard = ({ project }: { project: Project }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const duration = 0.7;
 
+  // Screen size checks
+  const isMobile = window.innerWidth <= 768;
+  const isTablet = window.innerWidth > 768 && window.innerWidth <= 1024;
+  const isDesktop = window.innerWidth > 1024;
+
   return (
     <div className="mb-32 md:overflow-visible overflow-hidden">
-      {" "}
       {/* Only hidden on mobile */}
       <motion.div
         initial={{
@@ -537,9 +541,22 @@ const ProjectCard = ({ project }: { project: Project }) => {
           x: project.direction === "left" ? -300 : 300,
           opacity: 0,
         }}
-        viewport={{ once: false, amount: 0 }}
-        // viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        // Adjust viewport amount based on screen size
+        viewport={{
+          once: false,
+          // On mobile, trigger when 10% of the component is visible
+          amount: isMobile
+            ? 0.1
+            : isTablet
+            ? 0.2 // On tablet, trigger when 20% is visible
+            : isDesktop
+            ? 0.3 // On desktop, trigger when 30% is visible
+            : 0.3,
+        }}
+        transition={{
+          duration: 0.8,
+          ease: "easeOut",
+        }}
         className={`flex ${
           project.direction === "left" ? "justify-start" : "justify-end"
         }`}
