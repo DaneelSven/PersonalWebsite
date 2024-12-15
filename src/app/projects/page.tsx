@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import HexagonGrid from "@/components/HexagonGrid";
 import NavBar from "@/components/NavBar";
-
+import { ChevronDown } from "lucide-react";
 interface Project {
   id: number;
   title: string;
@@ -59,16 +59,18 @@ const projects: Project[] = [
     description:
       "A decentralized Lending and Borrowing Protocol built on Hedera Hashgraph, Supply, Borrow, Withdraw, Repay, and Liquidations.",
     extendedDescription:
-      "Built from the ground up using Solidity for smart contracts and React for the frontend. Includes Machine Learning to predict and calcualte healthy loans. Users can borrow up to a certain percentage based on collateral provided to the Protocol ",
+      "Built from the ground up using Solidity for smart contracts and React for the frontend. Includes Machine Learning to predict and calcualte healthy loans. Users can borrow up to a certain percentage based on collateral provided to the Protocol. It has a built in Oracle system which gets prices from Supra and has a backup Time averaged Price Oracle in case Supra fails or has some sort of mainntainance on our tokens.",
     features: [
+      "Oracle",
       "Supplying",
       "Borrowing",
       "Interest Earnings",
       "Liquidations",
       "Governance System",
+      "Twap Oracle",
     ],
     architecture:
-      "Built using a combination of smart contracts for the core Protocol functionality and a modern Vue frontend for user interaction.",
+      "Built using a combination of smart contracts, functionality tested with Unit and Fuzzing test as well as static analysis for the core Protocol functionality and a modern Vue frontend for user interaction, with a kubernetes service.",
     techStack: [
       "Solidity",
       "Vue",
@@ -76,6 +78,7 @@ const projects: Project[] = [
       "Foundry",
       "Hardhat",
       "OpenZeppelin",
+      "Kubernetes",
       "TailwindCSS",
       "Ethers.js",
       "Web3.js",
@@ -144,7 +147,7 @@ const projects: Project[] = [
       "Web3 Functions",
     ],
     architecture:
-      "Develop components into microservices and responsibility abstraction, Signing Service, Sending Service.",
+      "Cross-chain comunication with automated Typescript functions deployed on IFPS listening to events on chains",
     techStack: [
       "Solidity",
       "Next.js",
@@ -204,7 +207,7 @@ const projects: Project[] = [
       "Blockchain Integration",
     ],
     architecture:
-      "Utilizes IPFS for decentralized storage and implements ERC-721 and ERC-1155 standards.",
+      "Typescript backend with Dockerized services running in client environments. Developed components into microservices and responsibility abstraction, Signing Service, Sending Service.",
     techStack: [
       "Solidity",
       "TypeScript",
@@ -213,6 +216,8 @@ const projects: Project[] = [
       "BIP-44",
       "BIP-32",
       "OpenZeppelin",
+      "Docker",
+      "Linux",
     ],
     image: "/ALPHA/alpha.png",
     link: "private",
@@ -523,7 +528,6 @@ const ProjectCard = ({ project }: { project: Project }) => {
   const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
-    // Check window size after the component has mounted (client-side)
     const updateWindowSize = () => {
       const width = window.innerWidth;
       setIsMobile(width <= 768);
@@ -531,13 +535,8 @@ const ProjectCard = ({ project }: { project: Project }) => {
       setIsDesktop(width > 1024);
     };
 
-    // Initial check
     updateWindowSize();
-
-    // Add event listener to update window size on resize
     window.addEventListener("resize", updateWindowSize);
-
-    // Clean up event listener on component unmount
     return () => {
       window.removeEventListener("resize", updateWindowSize);
     };
@@ -572,12 +571,8 @@ const ProjectCard = ({ project }: { project: Project }) => {
       >
         <motion.div
           className={`p-6 bg-gray-900/50 rounded-lg border border-orangeAccent/20 
-                       hover:border-orangeAccent/50 transition-colors backdrop-blur-sm
-                       ${
-                         isExpanded
-                           ? "w-full max-w-[1200px]"
-                           : "w-[800px] transition-all"
-                       }`}
+                     hover:border-orangeAccent/50 transition-colors backdrop-blur-sm relative
+                     ${isExpanded ? "w-full max-w-[1200px]" : "w-[800px]"}`}
           onClick={() => setIsExpanded(!isExpanded)}
           layout
           transition={{
@@ -585,6 +580,15 @@ const ProjectCard = ({ project }: { project: Project }) => {
             ease: "easeInOut",
           }}
         >
+          <motion.div
+            className="absolute top-6 right-6 text-orangeAccent"
+            initial={{ rotate: 0 }}
+            animate={{ rotate: isExpanded ? 180 : 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <ChevronDown size={24} />
+          </motion.div>
+
           <motion.div
             className={`flex flex-col ${
               project.direction === "left"
