@@ -57,7 +57,7 @@ const projects: Project[] = [
     id: 1,
     title: "DeFi Lending and Borrowing Platform",
     description:
-      "A decentralized Lending and Borrowing Protocol built on Hedera Hashgraph, Supply, Borrow, Withdraw, Repay, and Liquidations.",
+      "Developed a decentralized Lending and Borrowing Protocol with around 3M TVL at launch. Deployed on Hedera Hashgraph with , Supply, Borrow, Withdraw, Repay, and Liquidations functionalities.",
     extendedDescription:
       "Built from the ground up using Solidity for smart contracts and React for the frontend. Includes Machine Learning to predict and calcualte healthy loans. Users can borrow up to a certain percentage based on collateral provided to the Protocol. It has a built in Oracle system which gets prices from Supra and has a backup Time averaged Price Oracle in case Supra fails or has some sort of mainntainance on our tokens.",
     features: [
@@ -85,7 +85,7 @@ const projects: Project[] = [
     ],
     image: "/Sirio/Dashboard.png",
     additionalImages: ["/Sirio/Position.png", "/Sirio/Analytics.png"],
-    link: "private",
+    link: "https://app.sirio.finance/",
     direction: "left",
   },
   {
